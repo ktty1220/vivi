@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ViVi - HTML5 Mobile Application Framework -</title>
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <link rel="stylesheet" href="dist/vivi.css" media="all">
+</head>
+<body>
+  <section id="vv-main">
+    <nav>
+      <ul>
+        <li><a href="#article1"><i class="fa fa-home"></i>Article1</a></li>
+        <li><a href="#article2"><i class="fa fa-envelope"></i>Article2</a></li>
+      </ul>
+    </nav>
+    <div class="vv-page">
+
+      <article id="article1">
+        <h1 style="padding-top:1em">this is Article1's contents</h1>
+        <p style="padding:10px 2%">
+        <a id="open-secondary-section" href="#" style="color:#48f"><i class="fa fa-hand-o-right fa-2x"></i><span style="font-size:32px">Click to Open Secondary Section</span></a>
+        </p>
+        <ul class="list log">
+          <li class="list-divider">Log</li>
+        </ul>
+        <footer>
+          <ul>
+            <li><a href="#"><i class="fa fa-flag"></i>Option1</a></li>
+            <li><a href="#"><i class="fa fa-cogs"></i>Option2</a></li>
+            <li><a href="#"><i class="fa fa-edit"></i>Option3</a></li>
+          </ul>
+        </footer>
+      </article>
+
+      <article id="article2">
+        <ul class="list">
+          <li class="list-divider">list header</li>
+          <li class="list-item-sh">
+            <h3>single line (header and description is single line)</h3>
+          </li>
+          <li class="list-item-sh-sd">
+            <h3>with description (header and description is single line)</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </li>
+          <li class="list-item-sh-md">
+            <h3>with description (header is single line, description is multi line)</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </li>
+          <li class="list-item-mh-sd">
+            <h3>with description (header is multi line, description is single line)</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </li>
+          <li class="list-item-mh-md">
+            <h3>with description (header and description is multi line)</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </li>
+          <li class="list-divider">list header</li>
+          <li class="list-item-sh-sd list-item-checkbox">
+            <h3>checkbox</h3>
+            <p>hoge fugga</p>
+          </li>
+          <li class="list-item-sh-sd list-item-checkbox">
+            <h3>checkbox</h3>
+            <p>hoge fugga</p>
+          </li>
+          <li class="list-item-sh-sd list-item-checkbox">
+            <h3>checkbox</h3>
+            <p>hoge fugga</p>
+          </li>
+          <li class="list-item-sh-sd list-item-checkbox">
+            <h3>checkbox</h3>
+            <p>hoge fugga</p>
+          </li>
+          <li class="list-item-sh-sd list-item-checkbox">
+            <h3>checkbox</h3>
+            <p>hoge fugga</p>
+          </li>
+        </ul>
+        <footer>
+          <ul>
+            <li><a href="#"><i class="fa fa-eye"></i>Option4</a></li>
+            <li><a href="#"><i class="fa fa-heart"></i>Option5</a></li>
+          </ul>
+        </footer>
+      </article>
+    </div>
+  </section>
+
+  <section id="second">
+    <header>
+      <a href="#" class="vv-back"><i class="fa fa-reply"></i></a>
+      <h1>Secondajy Section</h1>
+    </header>
+    <div class="vv-page">
+      <article>
+        <ul class="list">
+          <li class="list-item-mh-md vv-no-highlight">
+            <h3>with description (header and description is multi line)</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </li>
+          <li class="list-item-mh-md vv-no-highlight">
+            <h3>with description (header and description is multi line)</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </li>
+          <li class="list-item-mh-md vv-no-highlight">
+            <h3>with description (header and description is multi line)</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </li>
+          <li class="list-item-mh-md vv-no-highlight">
+            <h3>with description (header and description is multi line)</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </li>
+          <li class="list-item-mh-md vv-no-highlight">
+            <h3>with description (header and description is multi line)</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </li>
+          <li class="list-item-mh-md vv-no-highlight">
+            <h3>with description (header and description is multi line)</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </li>
+          <li class="list-item-mh-md vv-no-highlight">
+            <h3>with description (header and description is multi line)</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </li>
+          <li class="list-item-mh-md vv-no-highlight">
+            <h3>with description (header and description is multi line)</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </li>
+          <li class="list-item-mh-md vv-no-highlight">
+            <h3>with description (header and description is multi line)</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </li>
+          <li class="list-item-mh-md vv-no-highlight">
+            <h3>with description (header and description is multi line)</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </li>
+          <li class="list-item-mh-md vv-no-highlight">
+            <h3>with description (header and description is multi line)</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </li>
+          <li class="list-item-mh-md vv-no-highlight">
+            <h3>with description (header and description is multi line)</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </li>
+          <li class="list-item-mh-md vv-no-highlight">
+            <h3>with description (header and description is multi line)</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </li>
+          <li class="list-item-mh-md vv-no-highlight">
+            <h3>with description (header and description is multi line)</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </li>
+          <li class="list-item-mh-md vv-no-highlight">
+            <h3>with description (header and description is multi line)</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </li>
+          <li class="list-item-mh-md vv-no-highlight">
+            <h3>with description (header and description is multi line)</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <script src="dist/vivi.js"></script>
+  <script>
+    // register ViVi initialize hook
+    VV.initialize = function (callback) {
+      console.log('ViVi initialize hook');
+      callback();
+    };
+
+    // ViVi activation
+    VV.ready(function () {
+      console.log('ViVi ready', VV);
+
+      // open secondary section
+      VV.event.tap('#open-secondary-section', function (ev) {
+        VV.changeSection('second');
+      });
+
+      // option taped
+      VV.event.tap('footer a', function (ev) {
+        var log = document.createElement('li');
+        var text = ev.target.textContent + ' clicked';
+        var ctype = 'list-item-sh';
+        if (Number(ev.target.textContent.substr(-1)) % 2 === 0) {
+          text += ' (tap to highlight)';
+        } else {
+          ctype += ' vv-no-highlight';
+        }
+        log.textContent = text;
+        VV.addClass(log, ctype);
+        VV.find('.log')[0].appendChild(log);
+      });
+    });
+  </script>
+</body>
+</html>

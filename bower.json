@@ -1,0 +1,27 @@
+{
+  "name": "vivi",
+  "version": "0.1.0",
+  "authors": [
+    "ktty1220 <ktty1220@gmail.com>"
+  ],
+  "description": "HTML5 Mobile Application Framework",
+  "keywords": [
+    "mobile",
+    "framework",
+    "android",
+    "ios"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "normalize.css": "~3.0.0",
+    "hammerjs": "<=1.0.6",
+    "reset-css": "~2.0.20110126"
+  }
+}
