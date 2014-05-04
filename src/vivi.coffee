@@ -1,5 +1,5 @@
 ###
-# vivi.js v0.1.0
+# vivi.js v0.1.1
 # (c) 2014 ktty1220
 # License: MIT
 ###
@@ -14,10 +14,88 @@ Function::bind ?= () ->
   newargary.push arguments[i] for i in [1...len]
   () -> func.apply t, newargary
 
+_elBody = null
+_scrollbar = null
+
+_hardwareScroll =
+  duration: (el, ms, opt = '') =>
+    tr = "#{ms}ms ease-out"
+    opt = "#{opt}," if opt.length > 0
+    el.style.WebkitTransition = "#{opt}-webkit-transform #{tr}"
+    el.style.transition = "#{opt}transform #{tr}"
+  set: (el, x, y = 0) =>
+    translate3d = "translate3D(#{x}px, #{y}px, 0)"
+    el.style.WebkitTransform = translate3d
+    el.style.transform = translate3d
+  get: (el) =>
+    m = (el.style.WebkitTransform ? '').match(/translate3d\s*\((.*?)\)/i)
+    return { x: 0, y: 0, z: 0} unless m
+    [ x, y, z ] = m[1].split(/\s*,\s*/).map (v, i, a) -> Number v.replace(/[^\d\.\-]/g, '')
+    x: x
+    y: y
+    z: z
+
+### スクロールバークラス ###
+class Scrollbar
+  constructor: (@top) ->
+    @el = document.createElement 'div'
+    @el.setAttribute 'class', 'vv-scrollbar'
+    @el.style.top = "#{@top}px"
+    document.querySelector('body').appendChild @el
+    @visibleRemain = 0
+    @currentEl = null
+    @show = false
+    @height = -1
+    @timer = setInterval () =>
+      return unless @show
+      if --@visibleRemain <= 0
+        @el.style.opacity = 0
+        @show = false
+    , 1000
+    document.addEventListener 'sectionactive', (ev) =>
+      el = ev.target
+      @setPos el, _hardwareScroll.get(el).y, 0, true
+    document.addEventListener 'sectionbackground', (ev) =>
+      el = document.querySelector('section.active .article-contents')
+      @setPos el, _hardwareScroll.get(el).y, 0, true
+
+  refresh: () => @currentEl = null
+
+  hide: (resetPos = false) =>
+    @show = false
+    @setDuration 0
+    @el.style.opacity = 0
+    setTimeout (=> @moveBar()), 600 if resetPos
+
+  setEl: (el) =>
+    if el? and @currentEl isnt el
+      @currentEl = el
+      @height = el.parentNode.offsetHeight
+      oh = el.offsetHeight
+      return if @height >= oh
+      @el.style.height = "#{Math.max(6, (@height / oh) * @height)}px"
+
+  moveBar: (y = 0, duration = 0) =>
+    @setDuration duration
+    _hardwareScroll.set @el, 0, y
+
+  setDuration: (duration) =>
+    _hardwareScroll.duration @el, duration, 'opacity 600ms ease-out'
+
+  setPos: (el, y, duration, bg = false) =>
+    @setEl el unless @currentEl?
+    oh = el.offsetHeight
+    return if @height >= oh
+    y *= -1
+    if not @show and not bg
+      @show = true
+      @el.style.opacity = 1
+    @moveBar (y / oh) * @height, duration
+    @visibleRemain = 2 unless bg
+
 ### 共通クラス ###
 class ViVi
   event: {}
-  _elBody: null
   _evTransition: [ 'oTransitionEnd', 'mozTransitionEnd', 'webkitTransitionEnd', 'transitionend' ]
 
   _parentUntil: (el, target) =>
@@ -37,15 +115,14 @@ class ViVi
     el = el.parentNode while el? and not re.test(el[type] ? '')
     el
 
-  _setTranslate3d: (el, x, y = 0) =>
-    translate3d = "translate3D(#{x}px, #{y}px, 0)"
-    el.style.WebkitTransform = translate3d
-    el.style.transform = translate3d
+  _setTranslate3d: (el, x, y = 0) => _hardwareScroll.set el, x, y
+
+  _currentTransform: (el) => _hardwareScroll.get el
 
   _bodySize: () =>
-    @_elBody ?= document.querySelector 'body'
-    height: @_elBody.offsetHeight
-    width: @_elBody.offsetWidth
+    _elBody ?= document.querySelector 'body'
+    height: _elBody.offsetHeight
+    width: _elBody.offsetWidth
 
   find: (selector, from = @el) =>
     #return from.querySelector selector if /^#[\w-]+$/.test selector
@@ -102,6 +179,7 @@ ViVi::_hammerOpt =
 ### <section>管理クラス ###
 class Section extends ViVi
   constructor: (@el) ->
+    @actived = 0
     @_setTranslate3d @el, 0
     @_tabs = []
 
@@ -143,6 +221,7 @@ class Section extends ViVi
     @_tabs.indexOf @_hash2id(@find('nav li.active a').item(0))
 
   _doTabChange: (elTab, onResize) =>
+    _scrollbar.hide()
     return if @_elTabLinks.length is 0
     elTab = @_parentUntil elTab, 'a'
     elPage = @find('.vv-page').item(0)
@@ -230,14 +309,6 @@ class Section extends ViVi
       @_setTranslate3d @el, @_bodySize().width
       @removeClass @el, 'bgset'
 
-  _currentTransform: (el) =>
-    m = (el.style.WebkitTransform ? '').match(/translate3d\s*\((.*?)\)/i)
-    return { x: 0, y: 0, z: 0} unless m
-    [ x, y, z ] = m[1].split(/\s*,\s*/).map (v, i, a) -> Number v.replace(/[^\d\.\-]/g, '')
-    x: x
-    y: y
-    z: z
-
   _onPageDragInit: (ev) =>
     if @hasClass ev.target, 'vv-wrapper'
       el = @find('.article-contents', ev.target)[0]
@@ -245,6 +316,7 @@ class Section extends ViVi
     else
       el = @_parentUntil ev.target, '.article-contents'
       elWrapper = @find('.vv-wrapper')[0]
+    _scrollbar.setEl el
     @_dragState =
       scrollRange: elWrapper.offsetHeight
       el: el
@@ -281,14 +353,13 @@ class Section extends ViVi
       else
         scrollRange = 0
         duration = 0
-    tr = if duration > 0 then "all #{duration}ms ease-out" else 'none'
-    el.style.transition = tr
-    el.style.WebkitTransition = tr
+    _hardwareScroll.duration el, duration
     maxBottom = (el.offsetHeight - elWrapper.offsetHeight) * -1
     switch direction
       when 'up' then y = Math.max y - scrollRange, maxBottom
       when 'down' then y += scrollRange
     y = 0 if y > 0
+    _scrollbar.setPos el, y, duration
     @_setTranslate3d el, 0, y
 
   _createScroller: () =>
@@ -348,6 +419,8 @@ class Core extends ViVi
       @initialize () =>
         @each 'body>section', (el, i) => @section[el.id] = new Section(el)
         @addClass @section['vv-main'].el, 'active'
+        @section['vv-main'].actived = 1
+        _scrollbar = new Scrollbar @section['vv-main'].find('.vv-wrapper')[0].offsetTop
         window.addEventListener 'resize', @_onResize
         @_onResize()
         @_tapEvent()
@@ -358,6 +431,7 @@ class Core extends ViVi
   _onResize: () =>
     elBody = @_bodySize()
     bodyHeight = "#{elBody.height}px"
+    _scrollbar.refresh()
     @each 'article', (el, i) =>
       el.style.minHeight = bodyHeight
     sec.onResize() for id, sec of @section
@@ -375,20 +449,27 @@ class Core extends ViVi
       @removeClass elt, 'back'
       @fireEvent 'sectionbackground', elt
     else
-      @each 'body>section', (el, i) =>
-        if @hasClass el, 'background'
-          @removeClass el, 'background'
-        else if @hasClass el, 'active'
-          @removeClass el, 'active'
-          @addClass el, 'background'
+      @removeClass v.el, 'active' for k, v of @section
       @addClass elt, 'active'
-      @fireEvent 'sectionactive', @find('body>section.active')[0]
+      @section[elt.id].actived = parseInt new Date() / 1000, 10
+      @fireEvent 'sectionactive', elt
 
   _doSectionChange: (elSection) =>
+    return if @hasClass elSection, 'active'
+    _scrollbar.hide()
+    if _hardwareScroll.get(elSection).x is 0
+      @addClass elSection, 'bgset'
+      @_setTranslate3d elSection, @_bodySize().width
+      @removeClass elSection, 'bgset'
     @addClass elSection, 'standby'
     do (elSection) => setTimeout (() => @_setTranslate3d(elSection, 0)), 10
 
+  hideScrollbar: (resetPos = false) => _scrollbar.hide resetPos
+
+  refreshScrollbar: () => _scrollbar.refresh()
+
   closeSection: () =>
+    _scrollbar.hide()
     currentSection = @find('body>section.active').item(0)
     if currentSection.id is 'vv-main'
       mainSection = @section['vv-main']
@@ -396,16 +477,17 @@ class Core extends ViVi
         @finalize () => window.navigator.app?.exitApp?()
         return
       return mainSection.changeTab mainSection._tabs[0]
+    @section[currentSection.id].actived = 0
     @removeClass currentSection, 'active'
     @addClass currentSection, 'standby back'
-    bg = @find 'body>section.background'
-    if bg.length > 0
-      @removeClass bg[0], 'background'
-      @addClass bg[0], 'active'
-    else
-      @addClass @find('#vv-main').item(0), 'active'
-    do (currentSection) =>
-      setTimeout (() => @_setTranslate3d currentSection, @_bodySize().width), 10
+
+    do (currentSection) => setTimeout () =>
+      nextSection = null
+      for k, v of @section
+        nextSection = v if v.actived > 0 and (not nextSection? or nextSection.actived < v.actived)
+      @addClass nextSection.el, 'active'
+      @_setTranslate3d currentSection, @_bodySize().width
+    , 10
 
   _sectionEvent: () =>
     @event.tap @find('header .vv-back'), (ev) => @closeSection()

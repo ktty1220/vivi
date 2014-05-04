@@ -881,8 +881,22 @@ body > section > header > .vv-back {
   margin-left: -3px;
   font-size: 32px;
 }
-.vv-page > article .vv-wrapper .iScrollVerticalScrollbar {
-  top: 0 !important;
+.vv-scrollbar {
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  z-index: 9999;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: rgba(96, 96, 96, 0.6);
+  border: solid 1px rgba(160, 160, 160, 0.8);
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background-clip: padding-box;
+  overflow: hidden;
+  opacity: 0;
+  width: 6px;
+  right: 0;
 }
 @media handheld, only screen and (max-width: 479px) {
   body > section > nav > ul > li > a,
