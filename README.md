@@ -570,9 +570,11 @@ sectionで記述したページを切り替えて先頭に表示させます。
       VV.changeSection('help');
     });
 
-#### closeSection()
+#### closeSection(toLeft)
 
 現在先頭に表示されているsectionページを閉じます。sectionが1つしかないアプリや現在表示されているsectionが`id="vv-main"`を指定したデフォルトページの時はアプリを終了します。
+
+`toLeft`は`true`か`false`で指定します(デフォルトは`false`)。`true`を指定するとsectionを閉じる時に左方向にスライドアニメーションして画面外へ移動します。
 
 ※アプリの終了とは、PhoneGapにおける`window.navigator.app.exitApp()`が実行されるという意味です。
 

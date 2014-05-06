@@ -2312,7 +2312,7 @@ Hammer.gestures.Transform = {
         return;
       }
       _scrollbar.hide();
-      if (_hardwareScroll.get(elSection).x === 0) {
+      if (_hardwareScroll.get(elSection).x <= 0) {
         this.addClass(elSection, 'bgset');
         this._setTranslate3d(elSection, this._bodySize().width);
         this.removeClass(elSection, 'bgset');
@@ -2338,8 +2338,11 @@ Hammer.gestures.Transform = {
       return _scrollbar.refresh();
     };
 
-    Core.prototype.closeSection = function() {
+    Core.prototype.closeSection = function(toLeft) {
       var currentSection, mainSection;
+      if (toLeft == null) {
+        toLeft = false;
+      }
       _scrollbar.hide();
       currentSection = this.find('body>section.active').item(0);
       if (currentSection.id === 'vv-main') {
@@ -2361,7 +2364,7 @@ Hammer.gestures.Transform = {
       return (function(_this) {
         return function(currentSection) {
           return setTimeout(function() {
-            var k, nextSection, v, _ref;
+            var k, nextSection, v, x, _ref;
             nextSection = null;
             _ref = _this.section;
             for (k in _ref) {
@@ -2371,7 +2374,11 @@ Hammer.gestures.Transform = {
               }
             }
             _this.addClass(nextSection.el, 'active');
-            return _this._setTranslate3d(currentSection, _this._bodySize().width);
+            x = _this._bodySize().width;
+            if (toLeft) {
+              x *= -1;
+            }
+            return _this._setTranslate3d(currentSection, x);
           }, 10);
         };
       })(this)(currentSection);

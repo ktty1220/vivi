@@ -457,7 +457,7 @@ class Core extends ViVi
   _doSectionChange: (elSection) =>
     return if @hasClass elSection, 'active'
     _scrollbar.hide()
-    if _hardwareScroll.get(elSection).x is 0
+    if _hardwareScroll.get(elSection).x <= 0
       @addClass elSection, 'bgset'
       @_setTranslate3d elSection, @_bodySize().width
       @removeClass elSection, 'bgset'
@@ -468,7 +468,7 @@ class Core extends ViVi
 
   refreshScrollbar: () => _scrollbar.refresh()
 
-  closeSection: () =>
+  closeSection: (toLeft = false) =>
     _scrollbar.hide()
     currentSection = @find('body>section.active').item(0)
     if currentSection.id is 'vv-main'
@@ -486,7 +486,9 @@ class Core extends ViVi
       for k, v of @section
         nextSection = v if v.actived > 0 and (not nextSection? or nextSection.actived < v.actived)
       @addClass nextSection.el, 'active'
-      @_setTranslate3d currentSection, @_bodySize().width
+      x = @_bodySize().width
+      x *= -1 if toLeft
+      @_setTranslate3d currentSection, x
     , 10
 
   _sectionEvent: () =>
