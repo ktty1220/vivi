@@ -557,6 +557,26 @@ jQueryのような万能型ではないですが、素のJavaScriptよりはマ�
       VV.toggleClass(el, 'checked');
     });
 
+#### getActiveSection()
+
+現在表示されているsectionのDOM要素を取得します。
+
+    // アクティブsectionのDOM要素を取得
+    var currentSection = VV.getActiveSection();
+
+    // アクティブsectionのidを取得
+    var currentSectionId = currentSection.id;
+
+#### getActiveArticle()
+
+現在表示されているsection内のアクティブなarticleのDOM要素を取得します。
+
+    // アクティブarticleのDOM要素を取得
+    var currentArticle = VV.getActiveArticle();
+
+    // アクティブarticleのidを取得
+    var currentArticleId = currentArticle.id;
+
 ### UI操作
 
 #### changeSection(sectionId)
@@ -846,29 +866,6 @@ section内で発生するイベントの管理を行います。
 
 将来的に専用のAPIが実装される可能性がありますが、 現段階では用意されていないので別途ここで紹介しておきます。
 
-### 現在表示されているページ(section)を取得する
-
-sectionに`active`というクラスが付与されているので、その有無で判定します。
-
-    // アクティブページのDOM要素を取得
-    var currentSection = VV.find('body > section.active')[0];
-
-    // アクティブページのsectionのidを取得
-    var currentSectionId = currentSection.id;
-
-### 現在表示されているページ内コンテンツ(article)を取得する
-
-nav内に設置したliに`active`というクラスが付与されているので、その子であるaタグのhrefからアクティブなarticleのidを取得、DOM要素が必要な場合はそのidから`VV.find()`などで取得します。
-
-    // アクティブページのアクティブコンテンツのタブを取得
-    var currentTab = VV.find('nav li.active a', currentSection)[0];
-
-    // タブリンクのhrefハッシュからアクティブなarticleのidを取得
-    var currentArticleId = currentTab.getAttribute('href');
-
-    // アクティブなarticleのDOM要素を取得
-    var currentArticle = VV.find(currentArticleId, currentSection);
-
 ### チェックボックスがチェックされているか判定する
 
 `list-item-checkbox`クラスを持ったリスト項目内には`vv-checkbox`というクラスを持ったdiv要素が作成されているので、そのdiv要素に`checked`クラスが付与されているかどうかで判定します。
@@ -912,6 +909,10 @@ ViViは上記アプリの開発中にフレームワークとして分離させ�
 なお、現時点でHammer.jsの最新バージョンは1.1.2ですが、最新版を使用するとスクロールの動作がおかしくなる現象が確認されています。現在ViViに組み込まれているHammer.jsのバージョンは1.0.6ですが、それ以上のバージョンには上げないようにしてください。
 
 ## Changelog
+
+### 0.1.2 (2014-07-19)
+
+* getActiveSection()、getActiveArticle()メソッド追加
 
 ### 0.1.1 (2014-05-04)
 

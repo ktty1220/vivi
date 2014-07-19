@@ -1,5 +1,5 @@
 ###
-# vivi.js v0.1.1
+# vivi.js v0.1.2
 # (c) 2014 ktty1220
 # License: MIT
 ###
@@ -296,6 +296,7 @@ class Section extends ViVi
   _createCheckBox: () =>
     checkbox = '<div class="vv-checkbox"></div>'
     @each '.vv-page .list-item-checkbox', (el, i) =>
+      return if @find('.vv-checkbox', el).length > 0
       children = el.children
       if children.length is 0
         el.append checkbox
@@ -468,9 +469,17 @@ class Core extends ViVi
 
   refreshScrollbar: () => _scrollbar.refresh()
 
+  getActiveSection: () => @find('body>section.active').item(0)
+
+  getActiveArticle: () =>
+    currentSection = @getActiveSection()
+    tabs = @find 'nav li.active a', currentSection
+    return @find('article', currentSection).item(0) if tabs.length is 0
+    @find(tabs.item(0).getAttribute('href'), currentSection).item(0)
+
   closeSection: (toLeft = false) =>
     _scrollbar.hide()
-    currentSection = @find('body>section.active').item(0)
+    currentSection = @getActiveSection()
     if currentSection.id is 'vv-main'
       mainSection = @section['vv-main']
       if mainSection._currentTabIndex() is 0
@@ -503,7 +512,7 @@ class Core extends ViVi
     @event.release @find('a'), (ev)  => @removeClass @_parentUntil(ev.target, 'a'), 'touch'
 
   changeTab: (tabId) =>
-    @section[@find('body>section.active').item(0).id].changeTab tabId
+    @section[@getActiveSection().id].changeTab tabId
 
   changeSection: (sectionId) =>
     @_doSectionChange @find("##{sectionId}").item(0)
