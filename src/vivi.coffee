@@ -1,5 +1,5 @@
 ###
-# vivi.js v0.1.2
+# vivi.js v0.1.3
 # (c) 2014 ktty1220
 # License: MIT
 ###
@@ -501,7 +501,9 @@ class Core extends ViVi
     , 10
 
   _sectionEvent: () =>
-    @event.tap @find('header .vv-back'), (ev) => @closeSection()
+    @event.tap @find('header .vv-back'), (ev) =>
+      return if @find('body>section.standby').length > 0
+      @closeSection()
 
   _tapEvent: () =>
     _preventDefault = (ev) => ev.preventDefault()
